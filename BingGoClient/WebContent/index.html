@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>BING-gO</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/controller.js"></script>
+  <style>
+  body {
+      position: relative;
+  }
+  .affix {
+      top: 20px;
+  }
+  div.col-sm-8 div {
+      height: 250px;
+      font-size: 28px;
+  }
+  
+  #section1 {color: #fff; background-color: lightgrey;}
+  #section2 {color: #fff; background-color: #673ab7;}
+  #section3 {color: #fff; background-color: #ff9800;}
+  #section4 {color: #fff; background-color: #00bcd4;}
+  #section5 {color: #fff; background-color: #009688;}
+  #section6 {color: #fff; background-color: #673ab7;}
+  
+  @media screen and (max-width: 810px) {
+    #section1, #section2, #section3, #section4, #section5, #section6  {
+        margin-left: 150px;
+    }
+  }
+  </style>
+</head>
+<body ng-app="myApp" data-target="#myScrollspy" data-offset="20">
+
+<div class="jumbotron text-center" style="background-color: #397D02; color: white">
+  <h1 style="font-size: 150px">B!NG gO!</h1>      
+  <p style="font-size: 50px">Common place for all Bearcats</p>
+</div>
+<br>
+
+<div class="container">
+	<div class="row">
+		<nav class="col-sm-3" id="myScrollspy">
+			<ul class="nav nav-pills nav-stacked" data-spy="affix"
+				data-offset-top="500">
+				<li><a href="#">HOME</a></li>
+				<li><a href="#events">EVENTS</a></li>
+				<li><a href="#apartments">APARTMENTS</a></li>
+				<li><a href="#archive">ARCHIVE</a></li>
+				<li><a href="#gallery">GALLERY</a></li>
+				<li><a href="#bearcats">BEARCATS</a></li>
+			</ul>
+		</nav>
+
+		<div ng-view>
+			<div class="col-sm-8">
+				<div ng-controller="myCtrl" ng-repeat="sec in sections" id="{{'section' + '' + ($index + 1) }}">
+					<h1>{{sec.name}}</h1>
+					<p>{{sec.desc}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
