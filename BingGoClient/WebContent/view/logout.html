@@ -1,0 +1,24 @@
+
+<a href="" data-toggle="modal" data-target="#myModal" id="showModal"></a>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #397D02; color: white;">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Confirm logout</h4>
+      </div>
+      <div class="modal-body" style="font-size: 15px; background-color: #E0EEE0;">
+        <p align="center"><strong>Are you sure you want to logout?</strong></p>
+      </div>
+      <div class="modal-footer" style="font-size: 15px; background-color: #E0EEE0;" align="center">
+      	<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="logoutConfirm()">Yes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelLogout()" style="background-color: #397D02; color: white;">No</button>
+      </div>
+    </div>
+
+  </div>
+</div>

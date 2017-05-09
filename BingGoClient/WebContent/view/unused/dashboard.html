@@ -1,0 +1,293 @@
+<!-- <!DOCTYPE html>
+<html >
+<head>
+  	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<title>B!NG-gO!</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+	<script src="http://angular-ui.github.io/ui-router/release/angular-ui-router.min.js"></script>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> 
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	Bootstrap Date-Picker Plugin
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+	ngStorage for maintaining $localStorage (or $sessionStorage)
+	<script src="https://cdn.jsdelivr.net/ngstorage/0.3.6/ngStorage.min.js"></script>
+
+	<link href="http://fonts.googleapis.com/css?family=Titillium+Web:400,300,600" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+	<link rel="stylesheet" href="../css/style.css"></link>
+	<style>
+		body {
+		    position: relative;
+		}
+		.affix {
+		    top: 20px;
+		}
+	/* 	div.col-sm-8 div {
+		    height: 250px;
+		    font-size: 28px;
+		} */
+		.navbar-custom {
+		    background-color:#229922;
+		    color:#ffffff;
+		    border-radius:0;
+		}
+	
+		.nav > li > a:hover,
+	 	.nav > li > a:focus {
+	    	text-decoration: none;
+	    	background-color: #397D02; /*Change rollover cell color here*/
+	  	}
+	  
+		#section1 {color: #fff; background-color: lightgrey;}
+		#section2 {color: #fff; background-color: #673ab7;}
+		#section3 {color: #fff; background-color: #ff9800;}
+		#section4 {color: #fff; background-color: #00bcd4;}
+		#section5 {color: #fff; background-color: #009688;}
+		#section6 {color: #fff; background-color: #673ab7;}
+		
+		    /* CUSTOMIZE THE CAROUSEL
+	    -------------------------------------------------- */
+	
+	    /* Carousel base class */
+	    .carousel {
+	      margin-bottom: 60px;
+	    }
+	
+	    .carousel .container {
+	      position: relative;
+	      z-index: 9;
+	    }
+	
+	    .carousel-control {
+	      height: 80px;
+	      margin-top: 0;
+	      font-size: 120px;
+	      text-shadow: 0 1px 1px rgba(0,0,0,.4);
+	      background-color: transparent;
+	      border: 0;
+	      z-index: 10;
+	    }
+	
+	    .carousel .item {
+	      width: 100%;
+	      height: 300px;
+	    }
+	    
+	    .carousel img {
+	      position: absolute;
+	      top: 0;
+	      left: 0;
+	      min-width: 100%;
+	      height: 300px;
+	    }
+		
+		.main-text
+		{
+		    position: absolute;
+		    top: 50px;
+		    width: 100%;
+		    color: #FFF;
+		}
+		
+		@media screen and (max-width: 810px) {
+		  #section1, #section2, #section3, #section4, #section5, #section6  {
+		      margin-left: 150px;
+		  }
+		}
+	</style>
+</head>
+
+<body>
+
+	<div ng-if='userId !== "undefined"' ng-app="myApp" ng-controller="userCtrl" data-target="/#myScrollspy" data-offset="20">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+
+					Carousel 
+		     ==================================================
+					<div id="myCarousel" class="carousel slide" data-ride="carousel">
+						<div class="carousel-inner">
+							<div class="item active">
+								<img src="../img/image1.jpg">
+							</div>
+							<div class="item">
+								<img src="../img/image2.jpg" alt="">
+							</div>
+							<div class="item">
+								<img src="../img/image3.jpg" alt="">
+							</div>
+							<div class="item">
+								<img src="../img/image4.jpg" alt="">
+							</div>
+						</div>
+					</div>
+					/.carousel
+					<div class="main-text hidden-xs">
+						<div class="col-md-12 text-center">
+							<h1 style="font-size: 100px">B!NG gO!</h1>
+							<p style="font-size: 50px">Common place for all Bearcats</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<nav class="col-sm-3" id="myScrollspy">
+					<ul class="nav nav-pills nav-stacked" data-spy="affix"
+						data-offset-top="300">
+						<li><a href="#bearcathome">HOME</a></li>
+						<li><a href="#events">EVENTS</a></li>
+						<li><a href="#apartments">APARTMENTS</a></li>
+						<li><a href="#archive">ARCHIVE</a></li>
+						<li><a href="#gallery">GALLERY</a></li>
+						<li><a href="#bearcats">BEARCATS</a></li>
+					</ul>
+				</nav>
+
+
+				<div class="col-sm-8" ng-view></div>
+
+			</div>
+		</div>
+	</div>
+	
+	<div ng-if='userId === "undefined"' ng-app="myApp" ng-controller="loginCtrl">
+		<div class="form">
+
+			<ul class="tab-group">
+				<li class="tab active"><a ng-href="#login" target="_self">Log
+						In</a></li>
+				<li class="tab"><a href="#signup" target="_self">Sign Up</a></li>
+			</ul>
+
+			<div class="tab-content">
+				<div id="login">
+					<h1>Welcome Back!</h1>
+
+					<form name="loginForm" method="post">
+
+						<div class="field-wrap">
+							<label> User Id<span class="req">*</span>
+							</label> <input type="text" ng-model="user.userId" required
+								autocomplete="off" />
+						</div>
+
+						<div class="field-wrap">
+							<label> Password<span class="req">*</span>
+							</label> <input type="password" ng-model="user.password" required
+								autocomplete="off" />
+						</div>
+
+						<p class="forgot">
+							<a href="#">Forgot Password?</a>
+						</p>
+
+						<button type="submit" class="button button-block" ng-click="loginUser()" >
+							Log In
+						</button>
+
+					</form>
+
+				</div>
+
+				<div id="signup">
+					<h1>Join the Bearcats Club</h1>
+
+					<form action="/" name="registrationForm" method="post">
+
+						<div class="top-row">
+							<div class="field-wrap">
+								<label> User Id<span class="req">*</span>
+								</label> <input type="text" ng-model="user.userId" required
+									autocomplete="off" />
+							</div>
+
+							<div class="field-wrap">
+								<label> Email Address<span class="req">*</span>
+								</label> <input type="email" ng-model="user.emailId" required
+									autocomplete="off" />
+							</div>
+						</div>
+
+						<div class="top-row">
+							<div class="field-wrap">
+								<label> First Name<span class="req">*</span>
+								</label> <input type="text" ng-model="user.firstName" required
+									autocomplete="off" />
+							</div>
+
+							<div class="field-wrap">
+								<label> Last Name<span class="req">*</span>
+								</label> <input type="text" ng-model="user.lastName" required
+									autocomplete="off" />
+							</div>
+						</div>
+
+						<div class="field-wrap">
+							<label> Set A Password<span class="req">*</span>
+							</label> <input type="password" ng-model="user.password" required
+								autocomplete="off" />
+						</div>
+
+						<div class="field-wrap">
+							<select class="req" style="width: 100%; height: 30px;"
+								required="required" name="communitySelect" id="communitySelect"
+								ng-model="user.community">
+								<option value="">---Select Your Community---</option>
+								<option ng-repeat="com in communities"
+									value="{{com.communityName}}">{{com.communityName}}</option>
+								<option value="Other">Other</option>
+							</select>
+						</div>
+
+						<div class="top-row" ng-show="user.community === 'Other'">
+							<div class="field-wrap">
+								<label> Name Your Community<span class="req">*</span>
+								</label> <input type="text" ng-model="user.newCommunity" required
+									autocomplete="off" />
+							</div>
+
+							<div class="field-wrap">
+								<label> Add Description<span class="req">*</span>
+								</label> <input type="text" ng-model="user.newCommunityDescription"
+									required autocomplete="off" />
+							</div>
+						</div>
+
+						<button type="submit" class="button button-block" ng-click="sendRegistrationRequest()">
+							Get Started
+						</button>
+
+					</form>
+
+				</div>
+			</div>
+			tab-content
+
+		</div>
+		/form
+
+		<script src="../js/index.js"></script>
+	</div>
+
+
+Load all js files
+	<script src="../js/app.js"></script>
+	<script src="../js/controller.js"></script>
+	<script type="text/javascript">
+		var $ = jQuery.noConflict();
+			$(document).ready(function() {
+		}); 
+	</script>
+</body>
+</html> -->

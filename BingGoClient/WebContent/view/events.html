@@ -1,6 +1,193 @@
-<div class="col-sm-8">
-	<div ng-repeat="event in events" id="{{'section' + '' + ($index + 1) }}">
-		<h1>{{event.name}}</h1>
-		<p>{{event.desc}}</p>
+<div class="row animate-bottom">
+	<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading" style="background-color: #397D02; color: white;" >
+        <h4 class="panel-title">
+          <a data-toggle="collapse" id="mainDiv" data-parent="#accordion" href="" data-target="#collapse1"><strong><u>Post New Event</u></strong></a>
+        </h4>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse">
+        <div class="panel-body">
+        	<form id="eventForm" class="form-horizontal" ng-submit="postNewEvent()">
+        		<div class="form-group">
+	    			<div class="col-sm-12">
+			  			<input type="text" ng-model="newEvent.name" required class="form-control" placeholder="Event Name"><br/>
+	    			</div>
+	    			<div class="col-sm-12">
+			  			<input type="text" ng-model="newEvent.location" required class="form-control" placeholder="Event Location"><br/>
+	    			</div>
+	    			<div class="col-sm-12">
+						<textarea ng-model="newEvent.description" required class="form-control" placeholder="Add event description" rows="3"></textarea>
+	    			</div>
+	    		</div>
+			 	<div class="form-group form-group-sm input-daterange" id="datepicker" >
+	    			<div class="col-sm-2">
+	    				<input class="form-control" required ng-model="newEvent.startDateString" id="sdate" name="sdate" placeholder="Start Date" type="text"/>
+	    			</div>
+	    			<div class="col-sm-2">
+	    				<select required class="form-control" ng-model="newEvent.startHour" name="startHour" id="startHour">
+	    					<option value="">Hour</option>
+	    					<option ng-repeat="i in [01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]" value="{{i}}">{{i}}</option>
+						</select>
+	    			</div>
+	    			<div class="col-sm-2">
+	    				<select required class="form-control" ng-model="newEvent.startMin">
+	    					<option value="">Min</option>
+							<option ng-repeat="i in [00, 15, 30, 45]" value="{{i}}">{{i}}</option>
+						</select>
+	    			</div>
+	    			<div class="col-sm-2">
+	    				<input ng-model="newEvent.endDateString" required class="form-control" id="edate" name="edate" placeholder="End Date" type="text"/>
+	    			</div>
+	    			<div class="col-sm-2">
+	    				<select required class="form-control" ng-model="newEvent.endHour">
+							<option value="">Hour</option>
+							<option ng-repeat="i in [01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]" value="{{i}}">{{i}}</option>
+						</select>
+	    			</div>
+	    			<div class="col-sm-2">
+		    			<select required class="form-control" ng-model="newEvent.endMin">
+		    				<option value="">Min</option>
+							<option ng-repeat="i in [00, 15, 30, 45]" value="{{i}}">{{i}}</option>
+						</select>
+	    			</div>
+	    		</div>
+             </form>
+        </div>
+		<div class="panel-footer">
+			<button type="submit" form="eventForm" class="btn btn-default" style="background-color: #397D02; color: white;" >
+				Create Event
+			</button>
+		</div>
+      </div>
+    </div>
+  </div>
+
+	<div>
+		<ul class="nav nav-pills nav-justified">
+		  <li class="active"><a data-toggle="pill" href="" data-target="#ongoingEventsTab">Ongoing Events</a></li>
+		  <li><a data-toggle="pill" href="" data-target="#upcomingEventsTab">Upcoming Events</a></li>
+		  <li><a data-toggle="pill" href="" data-target="#pastEventsTab">Past Events</a></li>
+		</ul>
+		<br/>
+		<div class="tab-content">
+		  <div id="ongoingEventsTab" class="tab-pane fade in active">
+			<div ng-repeat="event in events | orderBy: 'startDate'" id="{{'event' + '' + ($index + 1) }}" ng-cloak>
+				<div ng-if="event.ongoing" class="panel-group" id="accordion1">
+					<div class="panel panel-default">
+						<div class="panel-heading" style="background-color: #397D02; color: white;">
+							<div class="panel-title">
+								<table style="width: 100%">
+									<tr>
+										<td>
+											<a style="color: white;" data-toggle="collapse" data-parent="#accordion1" href="" data-target="{{'#eventId' + '' + ($index + 1) }}"><strong><u>{{event.name}}</u></strong></a>
+										</td>
+										<td style="text-align: right;">
+											{{event.startDateString}}
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div id="{{'eventId' + '' + ($index + 1) }}" class="panel-collapse collapse in">
+							<div class="panel-body" style="font-size:22px; background-color: #E0EEE0;">
+								{{event.description}}
+							</div>
+							<div class="panel-footer" style="background-color: #E0EEE0;">
+								<table style="width: 100%">
+									<tr>
+										<td style="width: 33%; text-align: left;"><strong>Location:</strong>{{" " + event.location}}</td>
+										<td style="width: 34%; text-align: center;"><strong>Starts at:</strong>{{" " + event.startHour + ":" + event.startMin}}</td>
+										<td style="width: 33%; text-align: right"><strong>Ends at:</strong>{{" " + event.endHour + ":" + event.endMin + " (" + event.endDateString + ")"}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="well" align="center" ng-if="ongoingEventCount == 0">
+				Currently there are no ongoing events.
+			</div> -->
+		  </div>
+		  <div id="upcomingEventsTab" class="tab-pane fade" ng-init="upcomingEventCount = 0">
+		    <div ng-repeat="event in events | orderBy: 'startDate'" id="{{'event' + '' + ($index + 1) }}" ng-cloak>
+				<div ng-if="event.upcoming" class="panel-group" id="accordion1">
+					<div class="panel panel-default" ng-init="upcomingEventCount = 1">
+						<div class="panel-heading" style="background-color: #397D02; color: white;">
+							<div class="panel-title">
+								<table style="width: 100%">
+									<tr>
+										<td>
+											<a style="color: white;" data-toggle="collapse" data-parent="#accordion1" href="" data-target="{{'#eventId' + '' + ($index + 1) }}"><strong><u>{{event.name}}</u></strong></a>
+										</td>
+										<td style="text-align: right;">
+											{{event.startDateString}}
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div id="{{'eventId' + '' + ($index + 1) }}" class="panel-collapse collapse in">
+							<div class="panel-body" style="font-size:22px; background-color: #E0EEE0;">
+								{{event.description}}
+							</div>
+							<div class="panel-footer" style="background-color: #E0EEE0;">
+								<table style="width: 100%">
+									<tr>
+										<td style="width: 33%; text-align: left;"><strong>Location:</strong>{{" " + event.location}}</td>
+										<td style="width: 34%; text-align: center;"><strong>Starts at:</strong>{{" " + event.startHour + ":" + event.startMin}}</td>
+										<td style="width: 33%; text-align: right"><strong>Ends at:</strong>{{" " + event.endHour + ":" + event.endMin + " (" + event.endDateString + ")"}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="well" align="center" ng-if="upcomingEventCount === 0">
+				Currently there are no upcoming events.
+			</div> -->
+		  </div>
+		  <div id="pastEventsTab" class="tab-pane fade">
+		    <div ng-repeat="event in events | orderBy: 'startDate'" id="{{'event' + '' + ($index + 1) }}" ng-cloak>
+				<div ng-if="event.past" class="panel-group" id="accordion1" >
+					<div class="panel panel-default">
+						<div class="panel-heading" style="background-color: #397D02; color: white;">
+							<div class="panel-title">
+								<table style="width: 100%">
+									<tr>
+										<td>
+											<a style="color: white;" data-toggle="collapse" data-parent="#accordion1" href="" data-target="{{'#eventId' + '' + ($index + 1) }}"><strong><u>{{event.name}}</u></strong></a>
+										</td>
+										<td style="text-align: right;">
+											{{event.startDateString}}
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div id="{{'eventId' + '' + ($index + 1) }}" class="panel-collapse collapse in">
+							<div class="panel-body" style="font-size:22px; background-color: #E0EEE0;">
+								{{event.description}}
+							</div>
+							<div class="panel-footer" style="background-color: #E0EEE0;">
+								<table style="width: 100%">
+									<tr>
+										<td style="width: 33%; text-align: left;"><strong>Location:</strong>{{" " + event.location}}</td>
+										<td style="width: 34%; text-align: center;"><strong>Starts at:</strong>{{" " + event.startHour + ":" + event.startMin}}</td>
+										<td style="width: 33%; text-align: right"><strong>Ends at:</strong>{{" " + event.endHour + ":" + event.endMin + " (" + event.endDateString + ")"}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="well" align="center" ng-if="pastEventCount === 0">
+				There are no events to display
+			</div> -->
+		  </div>
+		</div>
 	</div>
 </div>

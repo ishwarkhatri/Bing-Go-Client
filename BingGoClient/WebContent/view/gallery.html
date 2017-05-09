@@ -1,0 +1,51 @@
+<div class="row animate-bottom">
+	<div class="panel-group" id="accordion">
+    	<div class="panel panel-default">
+	      <div class="panel-heading" style="background-color: #397D02; color: white;">
+	        <h4 class="panel-title">
+	          <a data-toggle="collapse" id="mainDiv" data-parent="#accordion" href="" data-target="#collapse1"><strong><u>Upload Your Photos</u></strong></a>
+	        </h4>
+	      </div>
+	      <div id="collapse1" class="panel-collapse collapse">
+	        <div class="panel-body">
+	        	<form id="galleryForm" method="POST" enctype="multipart/form-data" ng-submit="uploadPhotos()">
+                	<div class="form-group">
+                		<table>
+                			<tr><td><input type="file" required class="form-control" name="files" accept="image/*" multiple/></td></tr>
+                			<tr><td><textarea required class="form-control" placeholder="Add Description" name="description"/></textarea></tr>
+                		</table>
+                	</div>
+	            </form>
+	        </div>
+			<div class="panel-footer"><input type="submit" form="galleryForm" class="btn btn-info" value="Upload" style="background-color: #397D02; color: white;" /></div>
+	      </div>
+    	</div>
+  	</div>
+
+	<div ng-repeat="photo in uploadedPhotos | orderBy: '-uploadDate'" class="well" ng-cloak>
+		<div align="center" style="padding-bottom: 5px; color: #397D02; font-family: cursive;">
+		<h1><strong>{{photo.uploader + "'s Canvas"}}</strong></h1>
+		<p><strong>{{photo.description}}</strong></p>
+		</div>
+  		<div id="{{'galaryCarousel' + ($index + 1)}}" style="height:100%; width:100%;" class="carousel slide" data-ride="carousel" data-wrap="false">
+			<div class="carousel-inner">
+				<div class="item active" style="height: 400px;">
+					<img width="auto" style="object-fit: contain; background: 'img/preloader.gif';" ng-src="{{server + photo.firstImageUrl}}" alt="" class="img-responsive">
+				</div>
+				<div ng-repeat="url in photo.otherImageUrls" class="item" style="height: 400px;">
+					<img style="object-fit: contain; background: 'img/preloader.gif';" width="auto" ng-src="{{server + url}}" alt="" class="img-responsive">
+				</div>
+			</div>
+
+			<!-- Left and right controls -->
+			<a class="left carousel-control" href="" data-target="{{'#galaryCarousel' + ($index + 1)}}" data-slide="prev">
+			    <span class="glyphicon glyphicon-chevron-left"></span>
+			    <span class="sr-only">Previous</span>
+			</a>
+			<a class="right carousel-control" href="" data-target="{{'#galaryCarousel' + ($index + 1)}}" data-slide="next">
+			    <span class="glyphicon glyphicon-chevron-right"></span>
+			    <span class="sr-only">Next</span>
+			</a>
+		</div>
+  	 </div>
+</div>

@@ -1,0 +1,74 @@
+<div class="row animate-bottom">
+	<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading" style="background-color: #397D02; color: white;" >
+        <h4 class="panel-title">
+          <a data-toggle="collapse" id="mainDiv" data-parent="#accordion" href="" data-target="#collapse1"><strong><u>Want To Rent Your Place? Post Here</u></strong></a>
+        </h4>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse">
+        <div class="panel-body">
+        	<form id="listingForm" class="form-horizontal" ng-submit="postNewListing()">
+        		<div class="form-group">
+        			<div class="col-sm-3">
+			  			<input type="number" ng-model="listing.no" required class="form-control" placeholder="Apt. No."><br/>
+	    			</div>
+	    			<div class="col-sm-9">
+			  			<input type="text" ng-model="listing.street" required class="form-control" placeholder="Street Name"><br/>
+	    			</div>
+	    			<div class="col-sm-6">
+			  			<input type="text" ng-model="listing.city" required class="form-control" placeholder="City"><br/>
+	    			</div>
+	    			<div class="col-sm-6">
+			  			<input type="number" ng-model="listing.contactNumber" required class="form-control" placeholder="Contact #"><br/>
+	    			</div>
+	    			<div class="col-sm-12">
+						<textarea ng-model="listing.description" required class="form-control" placeholder="Add description" rows="3"></textarea>
+	    			</div>
+	    		</div>
+			 	
+             </form>
+        </div>
+		<div class="panel-footer">
+			<button type="submit" form="listingForm" class="btn btn-default" style="background-color: #397D02; color: white;" >
+				Post
+			</button>
+		</div>
+      </div>
+    </div>
+  </div>
+  
+  <div ng-repeat="list in listings | orderBy: '-postedOn'" id="{{'listing' + '' + ($index + 1) }}">
+		<div class="panel-group" id="accordion1">
+			<div class="panel panel-default">
+				<div class="panel-heading" style="background-color: #397D02; color: white;">
+					<div class="panel-title">
+						<table style="width: 100%">
+							<tr>
+								<td>
+									<a style="color: white;" data-toggle="collapse" data-parent="#accordion1" href="" data-target="{{'#listingId' + '' + ($index + 1) }}"><strong><u>{{list.postedBy}}</u></strong></a>
+								</td>
+								<td style="text-align: right;">
+									{{list.postedOnString}}
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div id="{{'listingId' + '' + ($index + 1) }}" class="panel-collapse collapse in">
+					<div class="panel-body" style="font-size:22px; background-color: #E0EEE0;">
+						{{list.description}}
+					</div>
+					<div class="panel-footer" style="background-color: #E0EEE0;">
+						<table style="width: 100%">
+							<tr>
+								<td style="width: 50%; text-align: left;"><strong>{{'Address: ' + list.no + ' ' + list.street + ' ' + list.city}}</strong>
+								<td style="width: 50%; text-align: right;"><strong>{{'Contact #: ' + list.contactNumber}}</strong></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  </div>

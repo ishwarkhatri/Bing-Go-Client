@@ -1,0 +1,79 @@
+<div class="row animate-bottom">
+	<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading" style="background-color: #397D02; color: white;">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" id="mainDiv" data-parent="#accordion" href="" data-target="#collapse1"><strong><u>Add New Post</u></strong></a>
+        </h4>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse">
+        <div class="panel-body">
+        	<form id="bearcatsPostForm" ng-submit="bearcatAddPost()">
+				<textarea ng-model="bearcatPostDesc" required class="form-control" placeholder="Add description" rows="3"></textarea>
+			</form>
+        </div>
+		<div class="panel-footer"><input type="submit" form="bearcatsPostForm" class="btn btn-info" value="Add Post" style="background-color: #397D02; color: white;" /></div>
+      </div>
+    </div>
+  </div>
+
+	<div ng-repeat="post in bearcatPosts | orderBy: '-date'" style="font-size: 28px;">
+		<div class="panel-group" id="accordion1">
+   		<div class="panel panel-default">
+      		<div class="panel-heading" style="background-color: #397D02; color: white;">
+        		<h4 class="panel-title">
+          			<a data-toggle="collapse" data-parent="#accordion1" href="" data-target="{{'#post' + '' + ($index + 1) }}"><strong>{{post.postedBy.firstName + ' ' + post.postedBy.lastName}}</strong></a>
+        		</h4>
+      		</div>
+	      	<div id="{{'post' + '' + ($index + 1) }}" class="panel-collapse collapse in">
+	        	<div class="panel-body" style="background-color: #E0EEE0;">
+	        		<p>
+						{{post.postMessage}}
+					</p>
+	        	</div>
+	        	<div style="font-size: 15px; background-color: #E0EEE0;" class="panel-footer" id="accordion-inner">
+	        		<!-- If user likes the post -->
+	        		<a ng-if="post.userLikes" ng-click="bearcatDeRegister(post.id, 'like')" href="" class="glyphicon glyphicon-thumbs-up"  style="padding-right: 5px;"><strong>Purr</strong><span class="badge">{{post.likes.length}}</span></a>
+	        		
+	        		<a ng-if="post.userLikes" class="glyphicon glyphicon-thumbs-down" href="" style="padding-right: 5px;">Meow<span class="badge">{{post.disLikes.length}}</span></a>
+	        		
+	        		<!-- If user dislikes the post -->
+	        		<a ng-if="post.userDisLikes" class="glyphicon glyphicon-thumbs-up" href="" style="padding-right: 5px;">Purr<span class="badge">{{post.likes.length}}</span></a>
+
+	        		<a ng-if="post.userDisLikes" ng-click="bearcatDeRegister(post.id, 'disLike')" href="" class="glyphicon glyphicon-thumbs-down" style="padding-right: 5px;"><strong>Meow</strong><span class="badge">{{post.disLikes.length}}</span></a>
+	        		
+	        		<!--  Else  -->
+	        		<a ng-if="!post.userLikes && !post.userDisLikes" ng-click="bearcatRegister(post.id, 'like')" href="" class="glyphicon glyphicon-thumbs-up" style="padding-right: 5px;">Purr<span class="badge">{{post.likes.length}}</span></a>
+	        		
+	        		<a ng-if="!post.userLikes && !post.userDisLikes" ng-click="bearcatRegister(post.id, 'disLike')" href="" class="glyphicon glyphicon-thumbs-down" style="padding-right: 5px;">Meow<span class="badge">{{post.disLikes.length}}</span></a>
+	        		
+	        		<a data-toggle="collapse" data-parent="#accordian-inner" href="" data-target="{{'#comment' + '' + ($index + 1) }}" class="glyphicon glyphicon-comment">Nush-Nush<span class="badge">{{post.comments.length}}</span></a>
+
+					<div id="{{'comment' + '' + ($index + 1) }}" class="panel-collapse collapse in">
+		        		<div class="row" style="padding-top: 3px;">
+		        			<form id="{{'comment_form_' + '' + ($index + 1) }}" ng-submit="bearcatAddComment(post.id, 'comment_data_' + '' + ($index + 1))">
+			        			<table style="width: 100%;">
+			        				<tr>
+			        					<td width="85%">
+			        						<textarea rows="1" required style="width: 100%" placeholder="Write a comment" id="{{'comment_data_' + '' + ($index + 1) }}"></textarea>
+			        					</td>
+			        					<td width="15%">
+			        						<input type="submit" value="Comment" class="btn btn-xs" style="background-color: #397D02; color: white;" />		
+			        					</td>
+			        				</tr>
+			        			</table>
+			        		</form>
+		        		</div>
+		        		<div style="max-height: 70px; overflow-y: auto;">
+			        		<p ng-repeat="comment in post.comments" style="border: thin; padding-top: 3px;">
+			        			<strong><u>{{comment.commentedBy.firstName + ' ' + comment.commentedBy.lastName + ':'}}</u></strong> {{' ' + comment.commentMessage}}
+			        		</p>
+		        		</div>
+			        </div>
+				</div>
+	      	</div>
+    	</div>
+  		</div>
+	</div>
+
+</div>
